@@ -1,18 +1,17 @@
+#== Gabby 01/11/2017 ==#
+
 all: myapp
 
 CC: gcc
 
-myapp: init.o create_world.o print_world.o mtd.h
-	$(CC) -o myapp init.o create_world.o print_world.o mtd.h
+myapp: main.o world_structure.o world_structure.h
+	$(CC) -o myapp main.o world_structure.o world_structure.h
 
-init.o: init.c mtd.h
-	$(CC) -c init.c
+main.o: main.c world_structure.h
+	$(CC) -c main.c
 
-create_world.o: create_world.c
-	$(CC) -c create_world.c
-
-print_world.o: print_world.c
-	$(CC) -c print_world.c
+world_structure.o: world_structure.c world_structure.h
+	$(CC) -c world_structure.c
 
 clean:
 	-rm *.o myapp
