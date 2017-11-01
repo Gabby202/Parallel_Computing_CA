@@ -9,6 +9,4 @@ For now it'just the next status with a 50% probability
     NB_CELLS (world_structure.h)
         Define the size of the world array (NB_CELLS*NB_CELLS)
     TRACE (world_structure.h)
-        Set to 1 if you want a display every time the programme run through a function 0 otherwise
-    
-    
+       comment the definition of this constant if you don't want a display of each function it goes through

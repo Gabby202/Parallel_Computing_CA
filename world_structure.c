@@ -11,7 +11,9 @@
  */
 World_t* create_world_t (){
 
-    if (TRACE) printf("\n***************\nCreating a new world !");
+    #ifdef TRACE
+        printf("\n***************\nCreating a new world !");
+    #endif
 
     //to generate random numbers
     time_t t;
@@ -49,8 +51,9 @@ World_t* create_world_t (){
  */
 World_t* next_world_t(World_t *current_world) {
 
-    if (TRACE) printf("\n***************\nCreating a new future!");
-
+#ifdef TRACE
+     printf("\n***************\nCreating a new future!");
+#endif
 
     World_t* new_world = (World_t*) malloc(sizeof(World_t));
     if ( new_world == NULL ){
@@ -82,12 +85,20 @@ World_t* next_world_t(World_t *current_world) {
  * @return the world the the previous step
  */
 World_t *rewind_world_t(World_t *my_world) {
-    if (TRACE) printf("\n***************\nGoing back in time !");
+#ifdef TRACE
+     printf("\n***************\nGoing back in time !");
+#endif
     if ( my_world == NULL || my_world->previous_step ==NULL){
         fprintf(stderr, "(rewind_world_t) No world or previous world! Aborting...\n");
         exit(EXIT_FAILURE); /* indicate failure.*/
     }
 
+    int i, j;
+    for (i = 0; i < NB_CELLS; i++) {
+        for (j = 0; j < NB_CELLS; j++) {
+            free(my_world->world[i][j]);
+        }
+    }
     World_t* previous_world = my_world->previous_step;
     free(my_world);
     return previous_world;
@@ -99,7 +110,9 @@ World_t *rewind_world_t(World_t *my_world) {
  */
 void display_world_t (World_t *myWorld) {
 
-    if (TRACE) printf("\n***************\nThe current world : \n");
+#ifdef TRACE
+     printf("\n***************\nThe current world : \n");
+#endif
     int i, j;
     for (i = 0; i < NB_CELLS; ++i) {
         printf("\n\t");
@@ -108,5 +121,25 @@ void display_world_t (World_t *myWorld) {
         }
     }
     printf("\n");
+}
+
+void delete_world_t(World_t *my_world) {
+#ifdef TRACE
+    printf("(delete_world_t) Goodbye cuel world ");
+#endif
+
+    int i, j;
+    World_t* previous_world;
+    do{
+        previous_world = my_world->previous_step;
+        for (i = 0; i < NB_CELLS; i++) {
+            for (j = 0; j < NB_CELLS; j++) {
+                free(my_world->world[i][j]);
+            }
+        }
+        free(my_world);
+        my_world=previous_world;
+    }while (my_world!=NULL);
+
 }
 

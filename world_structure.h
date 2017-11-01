@@ -4,8 +4,8 @@
 
 
 
-#define NB_CELLS 100
-#define TRACE 0
+#define NB_CELLS 10
+//#define TRACE
 
 #include <stdio.h>
 #include <malloc.h>
@@ -29,5 +29,6 @@ World_t* create_world_t ();
 World_t* next_world_t(World_t*);
 World_t* rewind_world_t(World_t*);
 void display_world_t(World_t* );
+void delete_world_t(World_t*);
 
 #endif //PARALLEL_COMPUTING_PROJECT_WORLD_STRUCTURE_H
