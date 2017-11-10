@@ -2,9 +2,9 @@
 #ifndef PARALLEL_COMPUTING_PROJECT_WORLD_STRUCTURE_H
 #define PARALLEL_COMPUTING_PROJECT_WORLD_STRUCTURE_H
 
+int read_value(int);
 
-
-#define NB_CELLS 10
+#define NB_CELLS (read_value(1))
 //#define TRACE
 
 #include <stdio.h>
