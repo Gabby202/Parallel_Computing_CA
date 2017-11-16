@@ -2,9 +2,6 @@
 #ifndef PARALLEL_COMPUTING_PROJECT_WORLD_STRUCTURE_H
 #define PARALLEL_COMPUTING_PROJECT_WORLD_STRUCTURE_H
 
-int read_value(int);
-
-#define NB_CELLS (read_value(1))
 //#define TRACE
 
 #include <stdio.h>
@@ -21,14 +18,13 @@ typedef struct {
 
 typedef struct World {
     struct World* previous_step;
-    Cell_t* world[NB_CELLS][NB_CELLS];
+    Cell_t*** world;
 } World_t;
 
-
-World_t* create_world_t ();
-World_t* next_world_t(World_t*);
-World_t* rewind_world_t(World_t*);
-void display_world_t(World_t* );
-void delete_world_t(World_t*);
+World_t* create_world_t (int );
+World_t* next_world_t(World_t*,int );
+World_t* rewind_world_t(World_t*,int );
+void display_world_t(World_t* ,int );
+void delete_world_t(World_t*,int );
 
 #endif //PARALLEL_COMPUTING_PROJECT_WORLD_STRUCTURE_H
