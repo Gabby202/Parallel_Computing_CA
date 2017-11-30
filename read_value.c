@@ -37,3 +37,42 @@ int read_value(int line) {
 
   return value;
 }
+
+/**
+ * save the last step in a .csv file
+ * @param my_world
+ * @return 0 if error, 1 if ok
+ */
+void export_world_t(World_t my_world, int step, int nb_cells) {
+    FILE* backup_file = NULL;
+    char fileName[14];
+    sprintf(fileName, "worlds/world%d.txt", step);
+    backup_file = fopen(fileName,"w");
+
+    if ( backup_file == NULL ){
+        fprintf(stderr, "(export_world_t) Cannot open the backup file! Aborting...\n");
+        exit(EXIT_FAILURE); /* indicate failure.*/
+    }
+
+    int i,j , temp=1;
+    for (i=0;i<nb_cells;i++){
+        for (j = 0;  j < nb_cells; j++) {
+            temp = fprintf(backup_file,"%d,",my_world[i][j]->status);
+            if (temp<=0){
+                fprintf(stderr, "(export_world_t) Cannot write in the file! Aborting...\n");
+                exit(EXIT_FAILURE); /* indicate failure.*/
+            }
+        }
+        fprintf(backup_file,"\n");
+        if (temp<=0){
+            fprintf(stderr, "(export_world_t) Cannot write in the file! Aborting...\n");
+            exit(EXIT_FAILURE); /* indicate failure.*/
+        }
+    }
+
+    temp = fclose(backup_file);
+    if (temp!=0){
+        fprintf(stderr, "(export_world_t) Cannot close the file! Aborting...\n");
+        exit(EXIT_FAILURE); /* indicate failure.*/
+    }
+}
