@@ -1,7 +1,7 @@
 #include "world_structure.h"
 #include "read_value.h"
 #define NB_STEPS 50
-
+//road to master
 int main(int argc, char** argv) {
     int nb_cells = argc>=2?atoi(argv[1]):read_value(1);
     int nb_steps = argc>=3?atoi(argv[2]):NB_STEPS;
