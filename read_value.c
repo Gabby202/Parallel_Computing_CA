@@ -2,6 +2,7 @@
 #include "read_value.h"
 
 
+
 int read_value(int line) {
 
 
@@ -38,6 +39,19 @@ int read_value(int line) {
   return value;
 }
 
+void clean_worlds_dir(){
+printf("cleaning");
+    char fileName[50];
+    int i=0;
+    do{
+        sprintf(fileName, "%s%d%s",FILE_PREFIX,i,FILE_SUFFIX);
+        printf("\n  suppr: %s",fileName);
+        i++;
+    }while (remove(fileName)==0);
+
+    fprintf(stdout, "(clean world) \n\t%s\n",strerror(errno));
+}
+
 /**
  * save the last step in a .csv file
  * @param my_world
@@ -45,12 +59,12 @@ int read_value(int line) {
  */
 void export_world_t(World_t my_world, int step, int nb_cells) {
     FILE* backup_file = NULL;
-    char fileName[14];
-    sprintf(fileName, "worlds/world%d.txt", step);
+    char fileName[255];
+    sprintf(fileName, "%s%d%s",FILE_PREFIX, step,FILE_SUFFIX);
     backup_file = fopen(fileName,"w");
 
     if ( backup_file == NULL ){
-        fprintf(stderr, "(export_world_t) Cannot open the backup file! Aborting...\n");
+        fprintf(stderr, "(export_world_t) Cannot open the backup file! Aborting...\n%s",strerror(errno));
         exit(EXIT_FAILURE); /* indicate failure.*/
     }
 
@@ -76,3 +90,4 @@ void export_world_t(World_t my_world, int step, int nb_cells) {
         exit(EXIT_FAILURE); /* indicate failure.*/
     }
 }
+
