@@ -19,13 +19,13 @@ World_t create_world_t (int NB_CELLS){
 
     World_t myWorld = (Cell_t***) malloc(sizeof(Cell_t**)*NB_CELLS);
     if ( myWorld == NULL){
-        fprintf(stderr, "(create_world_t) memory allocation failled (world_t) %d Bytes Aborting...\n",sizeof(Cell_t*)*NB_CELLS);
+        fprintf(stderr, "(create_world_t) memory allocation failled (world_t) %d Bytes Aborting...\n",(int)sizeof(Cell_t*)*NB_CELLS);
         return NULL;
     }
     for (i = 0;  i<NB_CELLS ; i++) {
         myWorld[i] = (Cell_t**) malloc(sizeof(Cell_t*)*NB_CELLS*NB_CELLS);
         if ( myWorld[i] == NULL){
-            fprintf(stderr, "(create_world_t) memory allocation failled (world_t*) %d Bytes Aborting...\n",sizeof(Cell_t*)*NB_CELLS*NB_CELLS);
+            fprintf(stderr, "(create_world_t) memory allocation failled (world_t*) %d Bytes Aborting...\n",(int)sizeof(Cell_t*)*NB_CELLS*NB_CELLS);
             return NULL;
         }
     }
@@ -76,7 +76,7 @@ World_t next_world_t(World_t current_world,int NB_CELLS) {
     for (i = 0;  i<NB_CELLS ; i++) {
         new_world[i] = (Cell_t**) malloc(sizeof(Cell_t*)*NB_CELLS*NB_CELLS);
         if ( new_world[i] == NULL ){
-            fprintf(stderr, "(next_world_t) memory allocation failled (World_t*) %d Bytes Aborting...\n",sizeof(Cell_t*)*NB_CELLS*NB_CELLS);
+            fprintf(stderr, "(next_world_t) memory allocation failled (World_t*) %d Bytes Aborting...\n",(int)sizeof(Cell_t*)*NB_CELLS*NB_CELLS);
             exit(EXIT_FAILURE); /* indicate failure.*/
         }
     }
