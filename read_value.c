@@ -73,7 +73,7 @@ void export_world_t(World_t my_world, int step, int nb_cells) {
     int i,j , temp=1;
     for (i=0;i<nb_cells;i++){
         for (j = 0;  j < nb_cells; j++) {
-            temp = fprintf(backup_file,"%d,",my_world[i][j]->status);
+            temp = fprintf(backup_file,"%d",my_world[i][j]->status);
             if (temp<=0){
                 fprintf(stderr, "(export_world_t) Cannot write in the file! Aborting...\n");
                 exit(EXIT_FAILURE); /* indicate failure.*/
