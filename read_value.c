@@ -4,8 +4,6 @@
 
 
 int read_value(int line) {
-
-
 #ifdef TRACE
   printf("(read_value) from file ");
 #endif
@@ -20,7 +18,6 @@ int read_value(int line) {
     return 10;
   }
 
-
   for(i = 1; fgets(output, sizeof(output), fpointer) != NULL; i++) {
     //NB_CELLS is first line of textfile
     //add cases for each line of vars.md you want to read
@@ -33,23 +30,28 @@ int read_value(int line) {
       break;
     }
   }
-  printf("\nNB_CELLS : %d\n",value);
+  //printf("\nNB_CELLS : %d\n",value);
   fclose(fpointer);
 
   return value;
 }
 
 void clean_worlds_dir(){
-printf("cleaning");
+
+
+#ifdef TRACE
+    printf("\ncleaning");
+#endif
     char fileName[50];
     int i=0;
     do{
         sprintf(fileName, "%s%d%s",FILE_PREFIX,i,FILE_SUFFIX);
+#ifdef TRACE
         printf("\n  suppr: %s",fileName);
+#endif
         i++;
     }while (remove(fileName)==0);
 
-    fprintf(stdout, "(clean world) \n\t%s\n",strerror(errno));
 }
 
 /**

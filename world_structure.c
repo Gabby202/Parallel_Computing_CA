@@ -8,7 +8,7 @@
 World_t create_world_t (int NB_CELLS){
 
     #ifdef TRACE
-        printf("\n***************\nCreating a new world !");
+        printf("\t*************** create_world(%d)\n",NB_CELLS);
     #endif
 
     //to generate random numbers
@@ -18,21 +18,25 @@ World_t create_world_t (int NB_CELLS){
 
 
     World_t myWorld = (Cell_t***) malloc(sizeof(Cell_t**)*NB_CELLS);
+    if ( myWorld == NULL){
+        fprintf(stderr, "(create_world_t) memory allocation failled (world_t) %d Bytes Aborting...\n",sizeof(Cell_t*)*NB_CELLS);
+        return NULL;
+    }
     for (i = 0;  i<NB_CELLS ; i++) {
         myWorld[i] = (Cell_t**) malloc(sizeof(Cell_t*)*NB_CELLS*NB_CELLS);
+        if ( myWorld[i] == NULL){
+            fprintf(stderr, "(create_world_t) memory allocation failled (world_t*) %d Bytes Aborting...\n",sizeof(Cell_t*)*NB_CELLS*NB_CELLS);
+            return NULL;
+        }
     }
 
-    if ( myWorld == NULL){
-        fprintf(stderr, "(create_world_t) memory allocation failled! Aborting...\n");
-        exit(EXIT_FAILURE); /* indicate failure.*/
-    }
 
     for (i = 0; i < NB_CELLS; i++) {
         for (j = 0; j < NB_CELLS; j++) {
             Cell_t* my_cell = (Cell_t*) malloc(sizeof(Cell_t));
             if ( my_cell == NULL ){
-                fprintf(stderr, "(create_world_t) memory allocation failled! Aborting...\n");
-                exit(EXIT_FAILURE); /* indicate failure.*/
+                fprintf(stderr, "(create_world_t) memory allocation failled (Cell_t)! Aborting...\n");
+                return NULL;
             }
             if (rand() % 100<5)	{
                 my_cell->status = INFECTED;
@@ -60,25 +64,29 @@ World_t create_world_t (int NB_CELLS){
 World_t next_world_t(World_t current_world,int NB_CELLS) {
 
 #ifdef TRACE
-     printf("\n***************\nCreating a new future!");
+     printf("\t*************** next_world()\n");
 #endif
 
     int i, j;
     World_t new_world = (Cell_t***) malloc(sizeof(Cell_t**)*NB_CELLS);
+    if ( new_world == NULL ){
+        fprintf(stderr, "(next_world_t) memory allocation failled (World_t)! Aborting...\n");
+        return NULL; /* indicate failure.*/
+    }
     for (i = 0;  i<NB_CELLS ; i++) {
         new_world[i] = (Cell_t**) malloc(sizeof(Cell_t*)*NB_CELLS*NB_CELLS);
+        if ( new_world[i] == NULL ){
+            fprintf(stderr, "(next_world_t) memory allocation failled (World_t*) %d Bytes Aborting...\n",sizeof(Cell_t*)*NB_CELLS*NB_CELLS);
+            exit(EXIT_FAILURE); /* indicate failure.*/
+        }
     }
 
-    if ( new_world == NULL ){
-        fprintf(stderr, "(next_world_t) memory allocation failled! Aborting...\n");
-        exit(EXIT_FAILURE); /* indicate failure.*/
-    }
 
     for (i = 0; i < NB_CELLS; i++) {
         for (j = 0; j < NB_CELLS; j++) {
             Cell_t* my_cell = (Cell_t*) malloc(sizeof(Cell_t));
             if ( my_cell == NULL ){
-                fprintf(stderr, "(next_world_t) memory allocation failled! Aborting...\n");
+                fprintf(stderr, "(next_world_t) memory allocation failled (Cell_t) Aborting...\n");
                 exit(EXIT_FAILURE); /* indicate failure.*/
             }
 
@@ -169,7 +177,7 @@ World_t next_world_t(World_t current_world,int NB_CELLS) {
  */
 void display_world_t (World_t myWorld,int NB_CELLS) {
 #ifdef TRACE
-     printf("\n***************\nThe current world : \n");
+     printf("\t*************** display_world() \n");
 #endif
     int i, j;
     Cell_t* tempCell;
@@ -185,7 +193,7 @@ void display_world_t (World_t myWorld,int NB_CELLS) {
 
 void delete_world_t(World_t my_world,int NB_CELLS) {
 #ifdef TRACE
-    printf("(delete_world_t) Goodbye cuel world ");
+    printf("\t*************** delete_world_t()\n");
 #endif
 
     int i, j;
