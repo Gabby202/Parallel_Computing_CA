@@ -1,1 +1,46 @@
-10
+#/////////////////////////////////
+#Configuration of the grid
+#/////////////////////////////////
+CELLS 100
+STEPS 101
+#
+#///////////////////////////////////
+#Configuration of the initial step
+#///////////////////////////////////
+EMPTY 5
+INFECTED 5
+PROTECTED 2
+#
+#//////////////////////////////
+#Growth rate
+#//////////////////////////////
+#age attribute increase by one every X step
+AGING 100
+BIRTH 25
+NATURAL_CONTAMINATION 2
+INFECTIOUS_CONTAMINATION 6
+INFECTED_STEP1 2
+INFECTED_STEP2 4
+INFECTED_STEP3 7
+DEATH_DURATION 4
+INFECTIOUSNESS1 1
+INFECTIOUSNESS2 4
+INFECTIOUSNESS3 30
+PROTECTION_DURATION 30
+#
+#
+#///////////////////
+#DEFAULT VALUES
+#///////////////////
+#DEFAULT AGING 100
+#DEFAULT NATURAL_CONTAMINATION 2
+#DEFAULT INFECTIOUS_CONTAMINATION 6
+#DEFAULT INFECTED_STEP 2 4 7
+#DEFAULT INFECTIOUSNESS 1 4 30
+#DEFAULT DEATH_DURATION 4
+#DEFAULT CELLS 10
+#DEFAULT STEPS 10
+#DEFAULT EMPTY 5
+#DEFAULT INFECTED 5
+#DEFAULT PROTECTED 2
+#DEFAULT PROTECTION_DURATION 30
