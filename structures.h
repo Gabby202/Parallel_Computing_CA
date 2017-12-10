@@ -3,7 +3,12 @@
 
 //#define TRACE
 
-typedef enum {EMPTY = 1	, HEALTHY = 2, INFECTED =3, DEAD_INFECTIOUS=4, NATURAL_DEAD=5, PROTECTED=6} status_t;
+#include <sys/types.h>
+#include <time.h>
+
+
+typedef enum {EMPTY = 1	, HEALTHY = 2, INFECTED =3, DEAD_INFECTIOUS=4, NATURAL_DEAD=5, PROTECTED=6} Status_t;
+
 typedef struct {
     unsigned int CELLS;
     unsigned int STEPS;
@@ -22,14 +27,24 @@ typedef struct {
     unsigned int INFECTIOUSNESS2;
     unsigned int INFECTIOUSNESS3;
     unsigned int PROTECTION_DURATION;
+    unsigned int INFECTED_SPREADING;
 }Config_t;
+
 typedef struct {
-    status_t status;
-    int age;
-    int state_duration;
+    char status;
+    char age;
+    char state_duration;
 } Cell_t;
 
-typedef Cell_t*** World_t;
+typedef Cell_t* World_t;
 
+typedef struct {
+    Config_t* config;
+    World_t world;
+    World_t tempWorld;
+    int threadNum;
+}ThreadParam_t;
+
+World_t current_world,tempWorld;
 
 #endif //PARALLEL_COMPUTING_PROJECT_STRUCTURES_H

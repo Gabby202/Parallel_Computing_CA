@@ -12,8 +12,9 @@
 #include "structures.h"
 
 World_t create_world_t (Config_t* );
-World_t next_world_t(World_t ,Config_t* );
+World_t next_world_t(Config_t* );
 void display_world_t(World_t ,Config_t* );
-void delete_world_t(World_t ,Config_t* );
+void delete_world_t();
+World_t resWorld;
 
 #endif //PARALLEL_COMPUTING_PROJECT_WORLD_STRUCTURE_H
