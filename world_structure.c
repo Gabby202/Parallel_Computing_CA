@@ -16,13 +16,13 @@ World_t create_world_t (Config_t* config){
     //to generate random numbers
     time_t t;
     srand((unsigned) time(&t));
-    int i, j;
+    long i, j;
 
 
     World_t myWorld = (World_t) malloc(sizeof(Cell_t)*(config->CELLS)*config->CELLS);
 
     if ( myWorld == NULL){
-        fprintf(stderr, "\n(create_world_t) memory allocation failed (world_t) %d Bytes\n",(int)sizeof(Cell_t)*(config->CELLS)*(config->CELLS));
+        fprintf(stderr, "\n(create_world_t) memory allocation failed (world_t) %lu Bytes\n",(int)sizeof(Cell_t)*(config->CELLS)*(config->CELLS));
         return NULL;
     }
 
@@ -59,13 +59,15 @@ World_t next_world_t(Config_t* config) {
      printf("\t*************** next_world()\n");
 #endif
 
-    int i, j,k;
+    long i, j,k;
     Cell_t* neighbor[8];
     int infection_prob;
     Status_t temp_status;
+    char tempAge;
         for(i=0;i<config->CELLS;i++){
         for(j=0;j<config->CELLS;j++){
-            if (i % 100 == config->AGING)current_world[i*config->CELLS+j].age++;
+            tempAge = (i % 100 == (int)config->AGING)?current_world[i*config->CELLS+j].age:(char)(current_world[i*config->CELLS+j].age+1);
+
 
             temp_status = (Status_t) current_world[i*config->CELLS+j].status;
             neighbor[0]= &current_world[(i +(config->CELLS)  - 1) % (config->CELLS)*config->CELLS+(j +(config->CELLS)- 1) % (config->CELLS)];
@@ -131,14 +133,12 @@ World_t next_world_t(Config_t* config) {
             }
             tempWorld[i*config->CELLS+j].state_duration =(char) ((current_world[i*config->CELLS+j].status == temp_status) ? current_world[i*config->CELLS+j].state_duration+1 :0);
             tempWorld[i*config->CELLS+j].status = temp_status;
-            tempWorld[i*config->CELLS+j].age = current_world[i*config->CELLS+j].age;
-
-            resWorld = current_world;
-            current_world = tempWorld;
-            tempWorld = resWorld;
-
+            tempWorld[i*config->CELLS+j].age = tempAge;
         }
         }
+    resWorld = current_world;
+    current_world = tempWorld;
+    tempWorld = resWorld;
     return current_world;
 }
 

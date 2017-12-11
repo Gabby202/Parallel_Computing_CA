@@ -10,8 +10,9 @@
 typedef enum {EMPTY = 1	, HEALTHY = 2, INFECTED =3, DEAD_INFECTIOUS=4, NATURAL_DEAD=5, PROTECTED=6} Status_t;
 
 typedef struct {
-    unsigned int CELLS;
-    unsigned int STEPS;
+    unsigned long CELLS;
+    unsigned long STEPS;
+    unsigned int THREADS;
     unsigned int EMPTY;
     unsigned int INFECTED;
     unsigned int PROTECTED;
@@ -28,6 +29,7 @@ typedef struct {
     unsigned int INFECTIOUSNESS3;
     unsigned int PROTECTION_DURATION;
     unsigned int INFECTED_SPREADING;
+    unsigned int EXPORT;
 }Config_t;
 
 typedef struct {
